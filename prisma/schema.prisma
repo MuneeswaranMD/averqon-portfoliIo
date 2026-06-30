@@ -1,0 +1,110 @@
+datasource db {
+  provider  = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model AdminUser {
+  id           String   @id @default(uuid())
+  username     String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  description String
+  icon        String   // Lucide icon name
+  features    String[] // Array of features
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PortfolioProject {
+  id             String   @id @default(uuid())
+  title          String
+  slug           String   @unique
+  description    String
+  image          String   // Main image URL
+  gallery        String[] // Array of additional image URLs
+  category       String   // e.g. Web, Mobile, AI, SaaS
+  technologyTags String[] // Array of technologies used
+  demoLink       String?
+  clientName     String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model CaseStudy {
+  id             String   @id @default(uuid())
+  title          String
+  slug           String   @unique
+  problem        String
+  solution       String
+  process        String   // Steps/phases taken
+  results        String   // Key outcomes / metrics
+  clientFeedback String?
+  clientAuthor   String?  // Client testimonial author name
+  clientRole     String?  // Client role
+  image          String   // Showcase image
+  technologies   String[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model ContactRequest {
+  id               String   @id @default(uuid())
+  name             String
+  email            String
+  company          String?
+  message          String
+  serviceRequested String?
+  status           String   @default("PENDING") // PENDING, RESPONDED, ARCHIVED
+  createdAt        DateTime @default(now())
+}
+
+model QuoteRequest {
+  id               String   @id @default(uuid())
+  name             String
+  email            String
+  company          String?
+  projectDetails   String
+  serviceRequested String?
+  budgetRange      String?
+  timeline         String?
+  status           String   @default("PENDING") // PENDING, RESPONDED, ARCHIVED
+  createdAt        DateTime @default(now())
+}
+
+model BlogPost {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  content     String   // Rich markdown content
+  summary     String
+  image       String   // Cover image
+  category    String   // e.g., Tech, AI, Cloud
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model CareerOpportunity {
+  id           String   @id @default(uuid())
+  title        String
+  department   String
+  location     String
+  type         String   // Full-time, Remote, Contract
+  description  String
+  requirements String[]
+  benefits     String[]
+  status       String   @default("OPEN") // OPEN, CLOSED
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
