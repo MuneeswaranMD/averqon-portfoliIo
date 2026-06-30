@@ -91,7 +91,7 @@ export default function Footer() {
           <ul className="footer-legal-links">
             <li><Link href="/privacy" prefetch={false}>Privacy Policy</Link></li>
             <li><Link href="/terms" prefetch={false}>Terms of Service</Link></li>
-            <li><Link href="/sitemap.xml" prefetch={false}>Sitemap</Link></li>
+            <li><a href="/sitemap.xml">Sitemap</a></li>
           </ul>
         </div>
       </div>

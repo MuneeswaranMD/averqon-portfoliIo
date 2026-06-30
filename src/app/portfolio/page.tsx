@@ -70,6 +70,16 @@ const projects = [
 },
 ];
 
+const getCaseStudyId = (title: string) => {
+  const map: Record<string, string> = {
+    "AverLink Logistics": "averlink-logistics",
+    "NeoRetail Core": "neobank",
+    "Pulse Health App": "pulse-health",
+    "Sentient Analytics": "sentient-analytics",
+  };
+  return map[title] || "";
+};
+
 export default function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
@@ -174,7 +184,7 @@ export default function Portfolio() {
 
                     <div className={styles.cardFooter}>
                       <Link
-                        href={`/case-studies`}
+                        href={getCaseStudyId(project.title) ? `/case-studies?id=${getCaseStudyId(project.title)}` : `/case-studies`}
                         className={styles.caseLink}
                       >
                         Read Case Study <ArrowRight className="h-3.5 w-3.5" />

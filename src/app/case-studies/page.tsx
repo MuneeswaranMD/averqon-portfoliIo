@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { Quote, ArrowRight, ShieldCheck, Zap, Activity } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const caseStudies = [
   {
@@ -99,8 +100,16 @@ const caseStudies = [
   }
 ];
 
-export default function CaseStudies() {
+function CaseStudiesContent() {
+  const searchParams = useSearchParams();
+  const idParam = searchParams.get("id");
   const [activeStudy, setActiveStudy] = useState(caseStudies[0].id);
+
+  useEffect(() => {
+    if (idParam && caseStudies.some((c) => c.id === idParam)) {
+      setActiveStudy(idParam);
+    }
+  }, [idParam]);
 
   const currentStudy = caseStudies.find((c) => c.id === activeStudy)!;
 
@@ -271,5 +280,13 @@ export default function CaseStudies() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function CaseStudies() {
+  return (
+    <Suspense fallback={<div className="flex w-full min-h-screen items-center justify-center text-muted-foreground">Loading Case Studies...</div>}>
+      <CaseStudiesContent />
+    </Suspense>
   );
 }

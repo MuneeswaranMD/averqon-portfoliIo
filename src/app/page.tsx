@@ -98,6 +98,15 @@ function useFadeUp(threshold = 0.15) {
    PAGE COMPONENT
    ============================================= */
 
+const getCaseStudyId = (client: string) => {
+  const map: Record<string, string> = {
+    "AverLink Logistics": "averlink-logistics",
+    "NeoRetail Core": "neobank",
+    "Pulse Health": "pulse-health",
+  };
+  return map[client] || "";
+};
+
 export default function Home() {
   const [activeService, setActiveService] = useState<string | null>(null);
 
@@ -261,7 +270,7 @@ export default function Home() {
 
           <div className="work-grid">
             {projects.map((p) => (
-              <Link key={p.client} href="/case-studies" className="work-card" style={{ display: "flex", flexDirection: "column" }}>
+              <Link key={p.client} href={getCaseStudyId(p.client) ? `/case-studies?id=${getCaseStudyId(p.client)}` : "/case-studies"} className="work-card" style={{ display: "flex", flexDirection: "column" }}>
                 <div className="work-card-media">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={p.img} alt={p.title} />
