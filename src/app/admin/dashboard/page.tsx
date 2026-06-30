@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { ContactRequest, QuoteRequest } from "@prisma/client";
 import {
   FileText,
   MessageSquare,
@@ -23,8 +22,8 @@ export default async function AdminDashboard() {
     redirect("/admin/login?callbackUrl=/admin/dashboard");
   }
 
-  let contactRequests: ContactRequest[] = [];
-  let quoteRequests: QuoteRequest[] = [];
+  let contactRequests: any[] = [];
+  let quoteRequests: any[] = [];
   let databaseOffline = false;
 
   try {
@@ -92,8 +91,8 @@ export default async function AdminDashboard() {
 
   // Pre-calculate statistics
   const totalInquiries = contactRequests.length + quoteRequests.length;
-  const pendingQuotes = quoteRequests.filter((q: QuoteRequest) => q.status === "PENDING").length;
-  const totalBudgetRequested = quoteRequests.reduce((acc: number, curr: QuoteRequest) => {
+  const pendingQuotes = quoteRequests.filter((q: any) => q.status === "PENDING").length;
+  const totalBudgetRequested = quoteRequests.reduce((acc: number, curr: any) => {
     if (curr.budgetRange === "$100k+") return acc + 100000;
     if (curr.budgetRange?.includes("$50k")) return acc + 75000;
     if (curr.budgetRange?.includes("$25k")) return acc + 37500;
