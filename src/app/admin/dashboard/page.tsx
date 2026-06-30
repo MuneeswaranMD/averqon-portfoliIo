@@ -92,7 +92,7 @@ export default async function AdminDashboard() {
 
   // Pre-calculate statistics
   const totalInquiries = contactRequests.length + quoteRequests.length;
-  const pendingQuotes = quoteRequests.filter((q) => q.status === "PENDING").length;
+  const pendingQuotes = quoteRequests.filter((q: QuoteRequest) => q.status === "PENDING").length;
   const totalBudgetRequested = quoteRequests.reduce((acc: number, curr: QuoteRequest) => {
     if (curr.budgetRange === "$100k+") return acc + 100000;
     if (curr.budgetRange?.includes("$50k")) return acc + 75000;
