@@ -1,15 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
-});
 
 export const metadata: Metadata = {
   title: "Averqon | Product Engineering Portfolio",
@@ -46,8 +38,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={inter.variable} style={{ scrollBehavior: "smooth" }} data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body className={inter.variable} style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+    <html lang="en" style={{ scrollBehavior: "smooth" }} data-scroll-behavior="smooth" suppressHydrationWarning>
+      <body style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
         <Navbar />
         <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
           {children}
